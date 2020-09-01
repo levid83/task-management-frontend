@@ -21,7 +21,8 @@ const CardTitle = styled.h1`
   font-size: 22px;
 `;
 
-type TaskType = {
+export type TaskType = {
+  id: string;
   title: string;
   description: string;
   status: string;
