@@ -21,7 +21,11 @@ const ErrorList = styled.ul`
 
 const ErrorMessage = (props: { message: string }) => {
   const renderMessageArray = (errors: string[]) => (
-    <ErrorList>{errors.map((error: any) => error)}</ErrorList>
+    <ErrorList>
+      {errors.map((error: string, idx: number) => (
+        <li key={idx}>{error}</li>
+      ))}
+    </ErrorList>
   );
 
   const { message } = props;
