@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { TextField, FormControl, Button } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -22,7 +23,11 @@ const CreateTaskPage = (props: any) => {
   const [, setTitle] = useState("");
   const [, setDescription] = useState("");
 
-  const handleSubmitTask = async () => {};
+  const history = useHistory();
+
+  const handleSubmitTask = async () => {
+    history.push("/tasks");
+  };
 
   return (
     <FormWrapper>

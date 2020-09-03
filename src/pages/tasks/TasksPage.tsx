@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Fab, IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import SignOutIcon from "@material-ui/icons/ExitToApp";
@@ -50,6 +51,8 @@ const SignOutIconContainer = styled.div`
 `;
 
 const TasksPage = () => {
+  const history = useHistory();
+
   useEffect(() => {
     // dispatch get tasks action
   }, []);
@@ -57,10 +60,10 @@ const TasksPage = () => {
   const handleSignOut = () => {
     // dispatch signout
     // reset task list
-    // redirect to signin page
+    history.push("/signin");
   };
 
-  const renderTasks = (tasks: []) => {
+  const renderTasks = (tasks: TaskType[] = []) => {
     if (!tasks.length) {
       return (
         <EmptyTasksPlaceholder>
@@ -89,7 +92,7 @@ const TasksPage = () => {
           <Fab
             variant="extended"
             onClick={() => {
-              // redirect to create task page
+              history.push("/tasks/create");
               return;
             }}
           >
@@ -104,8 +107,7 @@ const TasksPage = () => {
           </SignOutIconContainer>
         </CreateButtonContainer>
       </TasksHeader>
-
-      <TasksContainer>{renderTasks([])}</TasksContainer>
+      <TasksContainer>{renderTasks()}</TasksContainer>
     </TasksWrapper>
   );
 };

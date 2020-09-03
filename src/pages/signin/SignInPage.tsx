@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -26,17 +27,19 @@ const SignInPage = () => {
   const [, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const history = useHistory();
+
   const submit = async () => {
     try {
       //dispatch signin action
-      //redirect to tasks
+      history.push("/tasks");
     } catch (error) {
       setErrorMessage(error.response.data.message);
     }
   };
 
   const goToSignUp = () => {
-    // redirect to signup
+    history.push("/signup");
     return;
   };
 
