@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+
+import { connect } from "react-redux";
+import { signup } from "../../redux/actions/userActions";
+
 import { Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -22,17 +26,17 @@ const FormField = styled(TextField)`
   width: 100%;
 `;
 
-const SignUpPage = () => {
-  const [, setUsername] = useState("");
-  const [, setPassword] = useState("");
+const SignUpPage = (props: any) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const history = useHistory();
 
   const submit = async () => {
     try {
-      //dispatch signup action
-      history.push("/tasks");
+      await props.signup({ username, password });
+      history.push("/signin");
     } catch (error) {
       setErrorMessage(error.response.data.message);
     }
@@ -85,4 +89,4 @@ const SignUpPage = () => {
     </div>
   );
 };
-export default SignUpPage;
+export default connect(null, { signup })(SignUpPage);

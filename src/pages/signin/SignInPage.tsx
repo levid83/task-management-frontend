@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+
+import { connect } from "react-redux";
+import { signin } from "../../redux/actions/userActions";
+
 import { Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -22,16 +26,16 @@ const FormField = styled(TextField)`
   width: 100%;
 `;
 
-const SignInPage = () => {
-  const [, setUsername] = useState("");
-  const [, setPassword] = useState("");
+const SignInPage = (props: any) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const history = useHistory();
 
   const submit = async () => {
     try {
-      //dispatch signin action
+      await props.signin({ username, password });
       history.push("/tasks");
     } catch (error) {
       setErrorMessage(error.response.data.message);
@@ -90,4 +94,4 @@ const SignInPage = () => {
     </div>
   );
 };
-export default SignInPage;
+export default connect(null, { signin })(SignInPage);
