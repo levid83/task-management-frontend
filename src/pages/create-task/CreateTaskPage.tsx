@@ -1,5 +1,11 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+
 import { useHistory } from "react-router-dom";
+import { createTask } from "../../redux/actions/taskActions";
+
+import ErrorMessage from "../../components/ErrorMessage";
+
 import { TextField, FormControl, Button } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -20,19 +26,26 @@ const FormContainer = styled.div`
 `;
 
 const CreateTaskPage = (props: any) => {
-  const [, setTitle] = useState("");
-  const [, setDescription] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const history = useHistory();
 
   const handleSubmitTask = async () => {
-    history.push("/tasks");
+    try {
+      await props.createTask({ title, description });
+      history.push("/tasks");
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+    }
   };
 
   return (
     <FormWrapper>
       <FormContainer>
         <h1>Create a new task</h1>
+        {errorMessage && <ErrorMessage message={errorMessage} />}
         <FormControl fullWidth>
           <TextField
             label="Title"
@@ -66,4 +79,4 @@ const CreateTaskPage = (props: any) => {
     </FormWrapper>
   );
 };
-export default CreateTaskPage;
+export default connect(null, { createTask })(CreateTaskPage);
