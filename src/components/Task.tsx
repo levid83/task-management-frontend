@@ -1,4 +1,12 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
+import { TaskType } from "../types";
+import {
+  deleteTask as delTask,
+  updateTaskStatus,
+} from "../redux/actions/taskActions";
+
 import {
   Card,
   CardContent,
@@ -21,25 +29,15 @@ const CardTitle = styled.h1`
   font-size: 22px;
 `;
 
-export type TaskType = {
-  id: string;
-  title: string;
-  description: string;
-  status: string;
-};
-
 const Task = (props: TaskType) => {
-  const deleteTask = () => {
-    // dispatch delete task action props.id
-  };
+  const dispatch = useDispatch();
 
-  const handleStatusChange = (
-    e: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
-  ) => {
-    // dispatch update task status props.id, new status
+  const deleteTask = () => dispatch(delTask(props.id));
+
+  const handleStatusChange = (e: any) => {
+    dispatch(updateTaskStatus(props.id, e.target.value));
   };
   const { title, description, status } = props;
-
   return (
     <CardContainer>
       <Card>
@@ -78,4 +76,4 @@ const Task = (props: TaskType) => {
   );
 };
 
-export default Task;
+export default React.memo(Task);
