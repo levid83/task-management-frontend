@@ -1,10 +1,19 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { useHistory } from "react-router-dom";
+
+import { fetchTasks } from "../../redux/actions/taskActions";
+import { signout } from "../../redux/actions/userActions";
+import Task from "../../components/Task";
+
+import { TaskType } from "../../types";
+import { RootStateType } from "../../redux/reducers";
+
 import { Fab, IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import SignOutIcon from "@material-ui/icons/ExitToApp";
 import styled from "styled-components";
-import Task, { TaskType } from "../../components/Task";
 
 const TasksWrapper = styled.div`
   width: 100%;
@@ -52,14 +61,15 @@ const SignOutIconContainer = styled.div`
 
 const TasksPage = () => {
   const history = useHistory();
+  const tasks = useSelector((state: RootStateType) => state.tasks.tasks);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch get tasks action
-  }, []);
+    dispatch(fetchTasks());
+  }, [dispatch]);
 
   const handleSignOut = () => {
-    // dispatch signout
-    // reset task list
+    dispatch(signout());
     history.push("/signin");
   };
 
@@ -107,7 +117,7 @@ const TasksPage = () => {
           </SignOutIconContainer>
         </CreateButtonContainer>
       </TasksHeader>
-      <TasksContainer>{renderTasks()}</TasksContainer>
+      <TasksContainer>{renderTasks(tasks)}</TasksContainer>
     </TasksWrapper>
   );
 };
