@@ -6,14 +6,12 @@ import {
 } from "../actions/types";
 import { TaskType } from "../../types";
 
-export type TaskStateType = {
+export type TasksStateType = {
   tasks: TaskType[];
-  task: Partial<TaskType>;
 };
 
-export const initialState: TaskStateType = {
+export const initialState: TasksStateType = {
   tasks: [],
-  task: {},
 };
 
 type ActionType =
@@ -30,7 +28,7 @@ export default function (
     case CREATE_TASK:
       return {
         ...state,
-        task: action.payload,
+        tasks: state.tasks.push(action.payload),
       };
     case UPDATE_TASK_STATUS:
       let idx = state.tasks.findIndex((task) => task.id === action.payload.id);
@@ -41,7 +39,6 @@ export default function (
       return {
         ...state,
         tasks: state.tasks.filter((task) => task.id !== action.payload),
-        task: null,
       };
     case FETCH_TASKS:
       return {

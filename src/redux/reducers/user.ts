@@ -4,7 +4,7 @@ export type UserStateType = {
   username: string;
 };
 
-export const initialState: UserStateType = {
+const initialState: UserStateType = {
   username: "",
 };
 
