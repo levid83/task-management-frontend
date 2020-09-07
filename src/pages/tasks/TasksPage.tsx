@@ -74,8 +74,8 @@ const TasksPage = () => {
     dispatch(fetchTasks(taskFilters));
   }, [dispatch, taskFilters]);
 
-  const handleSignOut = () => {
-    dispatch(signout());
+  const handleSignOut = async () => {
+    await dispatch(signout());
     history.push("/signin");
   };
 

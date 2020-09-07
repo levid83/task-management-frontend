@@ -44,10 +44,10 @@ export const updateTaskStatus = (id: number, status: string) => async (
     task = (await taskService.updateTaskStatus(id, status)) as {
       data: TaskType;
     };
-    dispatch({ type: UPDATE_TASK_STATUS, payload: task.data });
   } catch (error) {
     throw error;
   }
+  dispatch({ type: UPDATE_TASK_STATUS, payload: task.data });
 };
 
 export const fetchTasks = (filter: TaskFilters) => async (

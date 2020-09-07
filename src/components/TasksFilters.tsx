@@ -30,7 +30,7 @@ const TasksFilters = () => {
 
   const dispatch = useDispatch();
 
-  const syncFilters = (filters: TaskFilters) =>
+  const syncFilters = async (filters: TaskFilters) =>
     dispatch(updateTaskFilters(filters));
 
   const handleStatusFilterChange = (e: any) => {

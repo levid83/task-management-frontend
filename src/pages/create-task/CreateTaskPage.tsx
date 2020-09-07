@@ -25,7 +25,7 @@ const FormContainer = styled.div`
   border-radius: 5px;
 `;
 
-const CreateTaskPage = (props: any) => {
+const CreateTaskPage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -36,7 +36,7 @@ const CreateTaskPage = (props: any) => {
 
   const handleSubmitTask = async () => {
     try {
-      dispatch(createTask({ title, description }));
+      await dispatch(createTask({ title, description }));
       history.push("/tasks");
     } catch (error) {
       setErrorMessage(error.response.data.message);

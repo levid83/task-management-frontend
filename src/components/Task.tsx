@@ -32,9 +32,9 @@ const CardTitle = styled.h1`
 const Task = (props: TaskType) => {
   const dispatch = useDispatch();
 
-  const deleteTask = () => dispatch(delTask(props.id));
+  const deleteTask = async () => dispatch(delTask(props.id));
 
-  const handleStatusChange = (e: any) => {
+  const handleStatusChange = async (e: any) => {
     dispatch(updateTaskStatus(props.id, e.target.value));
   };
   const { title, description, status } = props;
