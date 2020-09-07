@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signin } from "../../redux/actions/userActions";
 
 import { Button, TextField } from "@material-ui/core";
@@ -31,11 +31,12 @@ const SignInPage = (props: any) => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const submit = async () => {
     try {
-      await props.signin({ username, password });
+      dispatch(await signin({ username, password }));
       history.push("/tasks");
     } catch (error) {
       setErrorMessage(error.response.data.message);
@@ -94,4 +95,4 @@ const SignInPage = (props: any) => {
     </div>
   );
 };
-export default connect(null, { signin })(SignInPage);
+export default SignInPage;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
 import { createTask } from "../../redux/actions/taskActions";
@@ -30,11 +30,13 @@ const CreateTaskPage = (props: any) => {
   const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const dispatch = useDispatch();
+
   const history = useHistory();
 
   const handleSubmitTask = async () => {
     try {
-      await props.createTask({ title, description });
+      dispatch(await createTask({ title, description }));
       history.push("/tasks");
     } catch (error) {
       setErrorMessage(error.response.data.message);
@@ -79,4 +81,4 @@ const CreateTaskPage = (props: any) => {
     </FormWrapper>
   );
 };
-export default connect(null, { createTask })(CreateTaskPage);
+export default CreateTaskPage;
