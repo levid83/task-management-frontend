@@ -15,7 +15,7 @@ const Heading = styled.h1`
 `;
 
 const FormContainer = styled.div`
-  max-width: 480px;
+  max-width: 380px;
   width: 100%;
   background-color: #edf4ff;
   padding: 30px;
