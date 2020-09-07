@@ -18,7 +18,7 @@ export default function (
     case SIGNIN:
       return {
         ...state,
-        username: action.payload ? action.payload : "",
+        username: action.payload,
       };
     case SIGNUP:
       return state;

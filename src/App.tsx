@@ -9,7 +9,7 @@ import CreateTaskPage from "./pages/create-task/CreateTaskPage";
 function App() {
   return (
     <>
-      <Route exact path="/" component={SignInPage} />
+      <Route exact path="/" component={TasksPage} />
       <Route path="/signin/" component={SignInPage} />
       <Route path="/signup/" component={SignUpPage} />
       <Route exact path="/tasks" component={TasksPage} />

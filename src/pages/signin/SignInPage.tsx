@@ -26,7 +26,7 @@ const FormField = styled(TextField)`
   width: 100%;
 `;
 
-const SignInPage = (props: any) => {
+const SignInPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -36,7 +36,7 @@ const SignInPage = (props: any) => {
 
   const submit = async () => {
     try {
-      dispatch(signin({ username, password }));
+      await dispatch(signin({ username, password }));
       history.push("/tasks");
     } catch (error) {
       setErrorMessage(error.response.data.message);
@@ -53,46 +53,48 @@ const SignInPage = (props: any) => {
       <FormContainer>
         <Heading>Hello!</Heading>
         <p>Fill in your username and password to sign in.</p>
+        <form>
+          {errorMessage && <ErrorMessage message={errorMessage} />}
+          <div>
+            <FormField
+              id="username"
+              label="Username"
+              margin="dense"
+              variant="outlined"
+              autoComplete="username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div>
+            <FormField
+              id="password"
+              label="Password"
+              margin="dense"
+              variant="outlined"
+              type="password"
+              autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <hr />
+          <div>
+            <Button
+              style={{ marginBottom: "10px" }}
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={submit}
+            >
+              SIGN IN
+            </Button>
 
-        {errorMessage && <ErrorMessage message={errorMessage} />}
-
-        <div>
-          <FormField
-            id="outlined-name"
-            label="Username"
-            margin="dense"
-            variant="outlined"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <FormField
-            id="outlined-name"
-            label="Password"
-            margin="dense"
-            variant="outlined"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <hr />
-        <div>
-          <Button
-            style={{ marginBottom: "10px" }}
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={submit}
-          >
-            SIGN IN
-          </Button>
-
-          <Button fullWidth onClick={goToSignUp}>
-            Don't have an account? Sign up now!
-          </Button>
-        </div>
+            <Button fullWidth onClick={goToSignUp}>
+              Don't have an account? Sign up now!
+            </Button>
+          </div>
+        </form>
       </FormContainer>
     </div>
   );
 };
-export default SignInPage;
+export default React.memo(SignInPage);
