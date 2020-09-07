@@ -36,7 +36,7 @@ const CreateTaskPage = (props: any) => {
 
   const handleSubmitTask = async () => {
     try {
-      dispatch(await createTask({ title, description }));
+      dispatch(createTask({ title, description }));
       history.push("/tasks");
     } catch (error) {
       setErrorMessage(error.response.data.message);

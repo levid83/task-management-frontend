@@ -36,7 +36,7 @@ const SignInPage = (props: any) => {
 
   const submit = async () => {
     try {
-      dispatch(await signin({ username, password }));
+      dispatch(signin({ username, password }));
       history.push("/tasks");
     } catch (error) {
       setErrorMessage(error.response.data.message);

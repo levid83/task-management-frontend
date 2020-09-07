@@ -36,7 +36,7 @@ const SignUpPage = (props: any) => {
 
   const submit = async () => {
     try {
-      dispatch(await signup({ username, password }));
+      dispatch(signup({ username, password }));
       history.push("/signin");
     } catch (error) {
       setErrorMessage(error.response.data.message);

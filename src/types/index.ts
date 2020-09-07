@@ -15,7 +15,7 @@ export type CreateTaskDTO = {
   description: string;
 };
 
-export type TaskFilter = {
+export type TaskFilters = {
   status?: string;
   search?: string;
 };

@@ -1,10 +1,10 @@
 import HttpService from "./http.service";
 import queryString from "query-string";
-import { CreateTaskDTO, TaskFilter } from "../types";
+import { CreateTaskDTO, TaskFilters } from "../types";
 
 export default class TasksService extends HttpService {
-  async fetchTasks({ status, search }: TaskFilter) {
-    const queryObj: TaskFilter = {};
+  async fetchTasks({ status, search }: TaskFilters) {
+    const queryObj: TaskFilters = {};
 
     if (status?.length) {
       queryObj.status = status;
