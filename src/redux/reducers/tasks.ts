@@ -3,22 +3,26 @@ import {
   UPDATE_TASK_STATUS,
   DELETE_TASK,
   FETCH_TASKS,
+  UPDATE_TASK_FILTER,
 } from "../actions/types";
-import { TaskType } from "../../types";
+import { TaskType, TaskFilters } from "../../types";
 
 export type TasksStateType = {
   tasks: TaskType[];
+  filters: TaskFilters;
 };
 
 export const initialState: TasksStateType = {
   tasks: [],
+  filters: { search: "", status: "" },
 };
 
 type ActionType =
   | typeof CREATE_TASK
   | typeof UPDATE_TASK_STATUS
   | typeof DELETE_TASK
-  | typeof FETCH_TASKS;
+  | typeof FETCH_TASKS
+  | typeof UPDATE_TASK_FILTER;
 
 export default function (
   state = initialState,
@@ -45,6 +49,8 @@ export default function (
         ...state,
         tasks: action.payload,
       };
+    case UPDATE_TASK_FILTER:
+      return { ...state, filters: action.payload };
     default:
       return state;
   }

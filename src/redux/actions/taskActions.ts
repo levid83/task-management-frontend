@@ -6,9 +6,10 @@ import {
   DELETE_TASK,
   UPDATE_TASK_STATUS,
   FETCH_TASKS,
+  UPDATE_TASK_FILTER,
 } from "./types";
 import TasksService from "../../services/tasks.service";
-import { TaskType, CreateTaskDTO } from "../../types";
+import { TaskType, CreateTaskDTO, TaskFilters } from "../../types";
 
 const taskService = new TasksService();
 
@@ -49,14 +50,21 @@ export const updateTaskStatus = (id: number, status: string) => async (
   }
 };
 
-export const fetchTasks = () => async (
+export const fetchTasks = (filter: TaskFilters) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>
 ) => {
   let tasks;
   try {
-    tasks = await taskService.fetchTasks({ status: "", search: "" });
+    tasks = await taskService.fetchTasks(filter);
   } catch (error) {
     throw error;
   }
   dispatch({ type: FETCH_TASKS, payload: tasks ? tasks.data : [] });
+};
+
+export const updateTaskFilters = (filters: TaskFilters) => {
+  return {
+    type: UPDATE_TASK_FILTER,
+    payload: filters,
+  };
 };
