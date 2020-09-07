@@ -1,15 +1,6 @@
 import HttpService from "./http.service";
 import queryString from "query-string";
-
-type TaskFilter = {
-  status?: string;
-  search?: string;
-};
-
-type TaskDTO = {
-  title: string;
-  description: string;
-};
+import { CreateTaskDTO, TaskFilter } from "../types";
 
 export default class TasksService extends HttpService {
   async fetchTasks({ status, search }: TaskFilter) {
@@ -35,7 +26,7 @@ export default class TasksService extends HttpService {
     return this.patch(`tasks/${id}/status`, { status });
   }
 
-  async createTask(task: TaskDTO) {
+  async createTask(task: CreateTaskDTO) {
     return this.post(`tasks`, task);
   }
 }

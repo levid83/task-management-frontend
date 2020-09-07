@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { BASE_URL } from "../config";
+
 export default class HttpService {
   _accessToken: string | null = null;
 

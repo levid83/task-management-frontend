@@ -8,16 +8,11 @@ import {
   FETCH_TASKS,
 } from "./types";
 import TasksService from "../../services/tasks.service";
-import { TaskType } from "../../types";
-
-type CreateTask = {
-  title: string;
-  description: string;
-};
+import { TaskType, CreateTaskDTO } from "../../types";
 
 const taskService = new TasksService();
 
-export const createTask = (task: CreateTask) => async (
+export const createTask = (task: CreateTaskDTO) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>
 ) => {
   let result;

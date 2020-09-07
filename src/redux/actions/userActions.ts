@@ -3,11 +3,7 @@ import { AnyAction } from "redux";
 
 import { SIGNIN, SIGNOUT, SIGNUP } from "./types";
 import AuthService from "../../services/auth.service";
-
-type UserCredentials = {
-  username: string;
-  password: string;
-};
+import { UserCredentials } from "../../types";
 
 const authService = new AuthService();
 

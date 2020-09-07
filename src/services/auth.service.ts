@@ -1,9 +1,5 @@
 import HttpService from "./http.service";
-
-type UserCredentials = {
-  username: string;
-  password: string;
-};
+import { UserCredentials } from "../types";
 
 export default class AuthService extends HttpService {
   async signin(credentials: UserCredentials) {
