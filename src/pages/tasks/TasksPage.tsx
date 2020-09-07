@@ -14,6 +14,7 @@ import { Fab, IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import SignOutIcon from "@material-ui/icons/ExitToApp";
 import styled from "styled-components";
+import TasksFilters from "../../components/TasksFilters";
 
 const TasksWrapper = styled.div`
   width: 100%;
@@ -30,6 +31,7 @@ const TasksHeader = styled.div`
 `;
 
 const Title = styled.h1`
+  font-size: 1.5em;
   width: 100%;
   color: #edf4ff;
 `;
@@ -60,13 +62,17 @@ const SignOutIconContainer = styled.div`
 `;
 
 const TasksPage = () => {
-  const history = useHistory();
   const tasks = useSelector((state: RootStateType) => state.tasks.tasks);
+  const taskFilters = useSelector(
+    (state: RootStateType) => state.tasks.filters
+  );
+
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch]);
+    dispatch(fetchTasks(taskFilters));
+  }, [dispatch, taskFilters]);
 
   const handleSignOut = () => {
     dispatch(signout());
@@ -117,6 +123,7 @@ const TasksPage = () => {
           </SignOutIconContainer>
         </CreateButtonContainer>
       </TasksHeader>
+      <TasksFilters />
       <TasksContainer>{renderTasks(tasks)}</TasksContainer>
     </TasksWrapper>
   );
