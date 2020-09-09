@@ -1,7 +1,7 @@
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 
-import { SIGNIN, SIGNOUT, SIGNUP } from "./types";
+import { SIGNIN, SIGNOUT, SIGNUP, CHECK_AUTH } from "./types";
 import AuthService from "../../services/auth.service";
 import { UserCredentials } from "../../types";
 
@@ -21,13 +21,12 @@ export const signup = (credentials: UserCredentials) => async (
 export const signin = (credentials: UserCredentials) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>
 ) => {
-  let username;
   try {
-    username = await authService.signin(credentials);
+    await authService.signin(credentials);
   } catch (error) {
     throw error;
   }
-  dispatch({ type: SIGNIN, payload: username });
+  dispatch({ type: SIGNIN, payload: null });
 };
 
 export const signout = () => async (
@@ -39,4 +38,22 @@ export const signout = () => async (
     throw error;
   }
   dispatch({ type: SIGNOUT, payload: null });
+};
+
+export const checkAuth = () => async (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>
+) => {
+  let result;
+  try {
+    result = await authService.checkAuth();
+    dispatch({
+      type: CHECK_AUTH,
+      payload: result ? result.data : { username: "", isAuthenicated: false },
+    });
+  } catch (error) {
+    dispatch({
+      type: CHECK_AUTH,
+      payload: { username: "", isAuthenicated: false },
+    });
+  }
 };

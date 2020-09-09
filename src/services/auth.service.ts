@@ -15,6 +15,10 @@ export default class AuthService extends HttpService {
     await this.post(`auth/signup`, credentials, {}, true);
   }
 
+  async checkAuth() {
+    return this.get(`auth/check-auth`);
+  }
+
   async signout() {
     this.removeToken();
   }

@@ -1,6 +1,7 @@
 export const SIGNIN = "SIGNIN";
 export const SIGNUP = "SIGNUP";
 export const SIGNOUT = "SIGNOUT";
+export const CHECK_AUTH = "CHECK_AUTH";
 
 export const CREATE_TASK = "CREATE_TASK";
 export const UPDATE_TASK_STATUS = "UPDATE_TASK_STATUS";
