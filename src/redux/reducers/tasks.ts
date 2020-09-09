@@ -32,12 +32,14 @@ export default function (
     case CREATE_TASK:
       return {
         ...state,
-        tasks: state.tasks.push(action.payload),
+        tasks: action.payload ? state.tasks.push(action.payload) : state.tasks,
       };
     case UPDATE_TASK_STATUS:
       let idx = state.tasks.findIndex((task) => task.id === action.payload.id);
       let newTasks = [...state.tasks];
-      newTasks[idx] = action.payload;
+      if (idx >= 0 && action.payload) {
+        newTasks[idx] = action.payload;
+      }
       return { ...state, tasks: newTasks };
     case DELETE_TASK:
       return {

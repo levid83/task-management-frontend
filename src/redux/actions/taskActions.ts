@@ -20,6 +20,7 @@ export const createTask = (task: CreateTaskDTO) => async (
   try {
     result = await taskService.createTask(task);
   } catch (error) {
+    dispatch({ type: CREATE_TASK, payload: null });
     throw error;
   }
   dispatch({ type: CREATE_TASK, payload: result });
@@ -30,10 +31,10 @@ export const deleteTask = (id: number) => async (
 ) => {
   try {
     await taskService.deleteTask(id);
+    dispatch({ type: DELETE_TASK, payload: id });
   } catch (error) {
-    throw error;
+    dispatch({ type: DELETE_TASK, payload: null });
   }
-  dispatch({ type: DELETE_TASK, payload: id });
 };
 
 export const updateTaskStatus = (id: number, status: string) => async (
@@ -44,10 +45,10 @@ export const updateTaskStatus = (id: number, status: string) => async (
     task = (await taskService.updateTaskStatus(id, status)) as {
       data: TaskType;
     };
+    dispatch({ type: UPDATE_TASK_STATUS, payload: task.data });
   } catch (error) {
-    throw error;
+    dispatch({ type: UPDATE_TASK_STATUS, payload: null });
   }
-  dispatch({ type: UPDATE_TASK_STATUS, payload: task.data });
 };
 
 export const fetchTasks = (filter: TaskFilters) => async (
@@ -56,10 +57,10 @@ export const fetchTasks = (filter: TaskFilters) => async (
   let tasks;
   try {
     tasks = await taskService.fetchTasks(filter);
+    dispatch({ type: FETCH_TASKS, payload: tasks ? tasks.data : [] });
   } catch (error) {
-    throw error;
+    dispatch({ type: FETCH_TASKS, payload: [] });
   }
-  dispatch({ type: FETCH_TASKS, payload: tasks ? tasks.data : [] });
 };
 
 export const updateTaskFilters = (filters: TaskFilters) => {
