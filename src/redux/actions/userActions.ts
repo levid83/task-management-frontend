@@ -1,7 +1,7 @@
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 
-import { SIGNIN, SIGNOUT, SIGNUP, CHECK_AUTH } from "./types";
+import { SIGNIN, SIGNOUT, SIGNUP, CHECK_AUTH, SET_USER } from "./types";
 import AuthService from "../../services/auth.service";
 import { UserCredentials } from "../../types";
 
@@ -56,4 +56,17 @@ export const checkAuth = () => async (
       payload: { username: "", isAuthenicated: false },
     });
   }
+};
+
+export const setUser = ({
+  username,
+  isAuthenticated,
+}: {
+  username: string;
+  isAuthenticated: boolean;
+}) => {
+  return {
+    type: SET_USER,
+    payload: { username, isAuthenticated },
+  };
 };

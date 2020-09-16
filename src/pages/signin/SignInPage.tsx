@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { signin } from "../../redux/actions/userActions";
+import { signin, setUser } from "../../redux/actions/userActions";
+import TokenService from "../../services/token.service";
 
 import { Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
@@ -37,6 +38,7 @@ const SignInPage = () => {
   const submit = async () => {
     try {
       await dispatch(signin({ username, password }));
+      await dispatch(setUser(new TokenService().loadTokenPayload()));
       history.push("/tasks");
     } catch (error) {
       setErrorMessage(error.response.data.message);

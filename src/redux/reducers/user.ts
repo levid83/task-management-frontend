@@ -1,4 +1,10 @@
-import { SIGNIN, SIGNOUT, SIGNUP, CHECK_AUTH } from "../actions/types";
+import {
+  SIGNIN,
+  SIGNOUT,
+  SIGNUP,
+  CHECK_AUTH,
+  SET_USER,
+} from "../actions/types";
 
 export type UserStateType = {
   username: string;
@@ -14,7 +20,8 @@ type ActionType =
   | typeof SIGNIN
   | typeof SIGNOUT
   | typeof SIGNUP
-  | typeof CHECK_AUTH;
+  | typeof CHECK_AUTH
+  | typeof SET_USER;
 
 export default function (
   state = initialState,
@@ -32,6 +39,12 @@ export default function (
         isAuthenticated: false,
       };
     case CHECK_AUTH:
+      return {
+        ...state,
+        username: action.payload.username,
+        isAuthenticated: action.payload.isAuthenticated,
+      };
+    case SET_USER:
       return {
         ...state,
         username: action.payload.username,
