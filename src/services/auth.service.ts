@@ -7,7 +7,7 @@ export default class AuthService extends HttpService {
       data: { accessToken: string; username: string };
     };
     const accessToken = result.data.accessToken;
-    this.saveToken(accessToken);
+    this.tokenService.saveToken(accessToken);
     return result.data.username;
   }
 
@@ -20,6 +20,6 @@ export default class AuthService extends HttpService {
   }
 
   async signout() {
-    this.removeToken();
+    this.tokenService.removeToken();
   }
 }

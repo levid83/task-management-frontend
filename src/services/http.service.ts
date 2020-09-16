@@ -1,10 +1,12 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { BASE_URL } from "../config";
+import TokenService from "./token.service";
 
 export default class HttpService {
-  _accessToken: string | null = null;
-
-  constructor(private baseURL: string = BASE_URL) {}
+  constructor(
+    protected tokenService: TokenService = new TokenService(),
+    private baseURL: string = BASE_URL
+  ) {}
 
   async get(
     endpoint: string,
@@ -83,31 +85,12 @@ export default class HttpService {
   }
 
   _getAuthHeader() {
-    const token = this.loadToken();
+    const token = this.tokenService.loadToken();
 
     return {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
-  }
-
-  get accessToken(): string | null {
-    return this._accessToken ? this._accessToken : this.loadToken();
-  }
-
-  saveToken(accessToken: string): void {
-    this._accessToken = accessToken;
-    return localStorage.setItem("accessToken", accessToken);
-  }
-
-  loadToken(): string | null {
-    const token = localStorage.getItem("accessToken");
-    this._accessToken = token;
-    return token;
-  }
-
-  removeToken(): void {
-    localStorage.removeItem("accessToken");
   }
 }
