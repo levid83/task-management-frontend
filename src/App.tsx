@@ -9,21 +9,41 @@ import CreateTaskPage from "./pages/create-task/CreateTaskPage";
 import TokenService from "./services/token.service";
 import { setUser } from "./redux/actions/userActions";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStateType } from "./redux/reducers";
+import GuardedRoute from "./GuardedRoute";
 
 function App() {
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(
+    (state: RootStateType) => state.user.isAuthenticated
+  );
 
   useEffect(() => {
     dispatch(setUser(new TokenService().loadTokenPayload()));
   });
   return (
     <>
-      <Route exact path="/" component={TasksPage} />
+      <GuardedRoute
+        exact
+        path="/"
+        component={TasksPage}
+        auth={isAuthenticated}
+      />
       <Route path="/signin/" component={SignInPage} />
       <Route path="/signup/" component={SignUpPage} />
-      <Route exact path="/tasks" component={TasksPage} />
-      <Route exact path="/tasks/create" component={CreateTaskPage} />
+      <GuardedRoute
+        exact
+        path="/tasks"
+        component={TasksPage}
+        auth={isAuthenticated}
+      />
+      <GuardedRoute
+        exact
+        path="/tasks/create"
+        component={CreateTaskPage}
+        auth={isAuthenticated}
+      />
     </>
   );
 }
