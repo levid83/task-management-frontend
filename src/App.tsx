@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 
 import SignInPage from "./pages/signin/SignInPage";
 import SignUpPage from "./pages/signup/SignUpPage";
@@ -9,15 +9,13 @@ import CreateTaskPage from "./pages/create-task/CreateTaskPage";
 import TokenService from "./services/token.service";
 import { setUser } from "./redux/actions/userActions";
 
-import { useDispatch, useSelector } from "react-redux";
-import { RootStateType } from "./redux/reducers";
+import { useDispatch } from "react-redux";
 import GuardedRoute from "./GuardedRoute";
 
 function App() {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(
-    (state: RootStateType) => state.user.isAuthenticated
-  );
+
+  const {isAuthenticated }=new TokenService().loadTokenPayload();
 
   useEffect(() => {
     dispatch(setUser(new TokenService().loadTokenPayload()));
@@ -30,8 +28,8 @@ function App() {
         component={TasksPage}
         auth={isAuthenticated}
       />
-      <Route path="/signin/" component={SignInPage} />
-      <Route path="/signup/" component={SignUpPage} />
+      <Route path="/signin/">{isAuthenticated ? <Redirect to="/" />:<SignInPage/>}</Route> 
+      <Route path="/signup/" >{isAuthenticated ? <Redirect to="/" />:<SignUpPage/>}</Route>
       <GuardedRoute
         exact
         path="/tasks"
