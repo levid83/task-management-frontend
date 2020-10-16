@@ -42,6 +42,9 @@ const CreateTaskPage = () => {
       setErrorMessage(error.response.data.message);
     }
   };
+  const handleCancel= ()=>{
+    history.push("/tasks");
+  }
 
   return (
     <FormWrapper>
@@ -70,12 +73,19 @@ const CreateTaskPage = () => {
         </FormControl>
         <Button
           style={{ marginTop: "10px" }}
-          fullWidth
           variant="contained"
           color="primary"
           onClick={handleSubmitTask}
         >
           CREATE TASK
+        </Button>
+        <Button
+          style={{ marginTop: "10px", marginLeft:"10px" }}
+          variant="contained"
+          color="secondary"
+          onClick={handleCancel}
+        >
+         CANCEL
         </Button>
       </FormContainer>
     </FormWrapper>
