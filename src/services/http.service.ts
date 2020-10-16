@@ -1,11 +1,11 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { BASE_URL } from "../config";
+
 import TokenService from "./token.service";
 
 export default class HttpService {
   constructor(
     protected tokenService: TokenService = new TokenService(),
-    private baseURL: string = BASE_URL
+    private baseURL: string = process.env.REACT_APP_BASE_URL as string
   ) {}
 
   async get(
