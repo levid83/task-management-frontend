@@ -42,6 +42,11 @@ const SignUpPage = () => {
       setErrorMessage(error.response.data.message);
     }
   };
+  
+    const goToSignIn = () => { 
+    history.push("/signin");
+    return;
+  };
 
   return (
     <div className="fullscreen-wrapper">
@@ -85,6 +90,9 @@ const SignUpPage = () => {
               onClick={submit}
             >
               SIGN UP
+            </Button>
+             <Button fullWidth onClick={goToSignIn}>
+              Backt to Sign In!
             </Button>
           </div>
         </form>
