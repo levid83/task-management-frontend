@@ -1,15 +1,15 @@
 ## Task management - demo project
 
-This is a React with Typescript front-end application for the [Task Management](https://github.com/levid83/task-management-ts) demo project.
+This is a **React with Typescript** front-end application for the [Task Management](https://github.com/levid83/task-management-ts) demo project.
 
 ## Techniques
 
-- JWT for authentication
-- functional components with hooks
-- Centralized application state management with Redux
+- **JWT for authentication**
+- functional components with **hooks**
+- Centralized application state management with **Redux**
 - custom types
-- material ui components
-- styled components
+- **material ui** components
+- **styled components**
 
 ## Installation
 
